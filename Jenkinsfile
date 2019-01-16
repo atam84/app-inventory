@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Publish Image') {
             steps {
-                withDockerRegistry([ credentialsId: "${credential}"]) {
+                withDockerRegistry([ credentialsId: "${credential}", url: "" ]) {
                     sh 'docker push atamdocker/appinventory:latest'
                     sh 'docker push atamdocker/appinventory:${app_version}'
                 }
