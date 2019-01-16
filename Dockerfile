@@ -10,10 +10,7 @@ ENV APP_NAME=AppInventory \
     MONGODB_URI=mongodb-server \
     MONGODB_PORT=27014 \
     MONGODB_USER=mongoadmin \
-    MONGODB_PASSWORD=Atam84Passw0rd \
-    http_proxy=http://193.56.47.8:8080/ \
-    http_proxy_port=8080 \
-    https_proxy=http://193.56.47.8:8080/
+    MONGODB_PASSWORD=Atam84Passw0rd
 
 RUN apt-get update \
     && apt-get install -y curl \
@@ -51,10 +48,8 @@ FROM alpine:latest
 ENV ROOT_URL=http://localhost \
     PORT=3000 \
     BIND_IP=0.0.0.0 \
-    MONGO_URL=mongodb://mongoadmin:Atam84Passw0rd@mongo-db:27014 \
-    http_proxy=http://193.56.47.8:8080/ \
-    http_proxy_port=8080 \
-    https_proxy=http://193.56.47.8:8080/
+    MONGO_URL=mongodb://mongoadmin:Atam84Passw0rd@mongo-db:27014
+    
 RUN apk update \
     && apk --no-cache upgrade \
     && apk --no-cache add npm nodejs python make cmake g++
