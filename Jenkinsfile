@@ -3,7 +3,7 @@ pipeline {
         label '${AGENT_LABEL_BUILD}'
     }
     stages {
-        stage {
+        stage('Configuration') {
             steps {
                 sh 'echo "APP_VERSION = ${APP_VERSION}"'
                 sh 'echo "AGENT_LABEL_BUILD = ${AGENT_LABEL_BUILD}"'
