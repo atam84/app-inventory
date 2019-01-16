@@ -32,15 +32,16 @@ Template.myvdi.events({
     'click .vdi-remove': (e) => {
         e.preventDefault();
         let _docId = e.target.id;
-        //_collection.remove({_id: _docId});
-        console.log('i will detch this VDI id : ' + _docId);
+        // confirmation message that vdi will be removed and confirmation after vdi is removed
+        _collection.remove({_id: _docId});
+        /*console.log('i will detch this VDI id : ' + _docId);
         Meteor.call('detachVdi', _docId, (err, res) => {
             if (err) {
                 console.log('ERROR : ' + err);
             } else if (res) {
                 console.log(_docId + ' is flagged as removed CI');
             }
-        });
+        });*/
     }
 });
 
