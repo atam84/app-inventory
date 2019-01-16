@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t atamdocker/appinventory:latest -t atamdocker/appinventory:${app_version}'
+                sh 'docker build -t atamdocker/appinventory:latest -t atamdocker/appinventory:${app_version} .'
             }
         }
         stage('Publish Image') {
