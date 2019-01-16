@@ -8,7 +8,7 @@ pipeline {
         file(name: "FILE", description: "Choose a file to upload")
     }
     agent {
-        label '${params.AGENT_LABEL_BUILD}'
+        label '"${params.AGENT_LABEL_BUILD}"'
     }
     stages {
         stage('Configuration') {
