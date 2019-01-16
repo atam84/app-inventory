@@ -21,14 +21,14 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t atamdocker/appinventory:latest -t atamdocker/appinventory:${params.APP_VERSION} .'
+                sh "docker build -t atamdocker/appinventory:latest -t atamdocker/appinventory:${params.APP_VERSION} ."
             }
         }
         stage('Publish Image') {
             steps {
                 withDockerRegistry([ credentialsId: "${credential}", url: "" ]) {
                     sh 'docker push atamdocker/appinventory:latest'
-                    sh 'docker push atamdocker/appinventory:${params.APP_VERSION}'
+                    sh "docker push atamdocker/appinventory:${params.APP_VERSION}"
                 }
             }
         }
