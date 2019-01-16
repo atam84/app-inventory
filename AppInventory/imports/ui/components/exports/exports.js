@@ -22,4 +22,8 @@ Template.vdidata.helpers({
     }
 });
 
-
+Template.lpservers.helpers({
+    'exportLPserversData': () => {
+        return EJSON.stringify(collections.lapostesrv.find({}).fetch());
+    }
+});

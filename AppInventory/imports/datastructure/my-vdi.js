@@ -21,12 +21,13 @@ export const myvdi = new SimpleSchema({
 		regEx: SimpleSchema.RegEx.IPv4,
 		required: true,
 		custom() {
-			console.log('check ip duplication : ' + this.field('ip').value);
+			console.log('** check ip duplication : ' + this.field('ip').value);
 			if(!this.field('ip').value && !this.value) {
 				return 'required';
 			}
+			console.log('**');
 			if(Meteor.isServer) {
-				//console.log('[srv] - check ip duplication : ' + this.field('ip').value);
+				console.log('[srv] - check ip duplication : ' + this.field('ip').value);
 				let targetCheck = collections.myvdi.find({ip: this.field('ip').value}).fetch();
 				if (targetCheck !== undefined && targetCheck.length > 0) {
 					return 'errIpDuplicate';

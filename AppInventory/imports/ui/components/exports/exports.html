@@ -6,6 +6,9 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#showVdiData">Export VDIs</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#showLPserversData">Export LP Servers</a>
+        </li>
   </ul>
   
   <!-- Tab panels -->
@@ -15,6 +18,9 @@
     </div>
     <div class="tab-pane container fade" id="showVdiData">
         {{> vdidata}}
+    </div>
+    <div class="tab-pane container fade" id="showLPserversData">
+        {{> lpservers}}
     </div>
   </div>
 </template>
@@ -33,4 +39,12 @@
         <textarea class="form-control" rows="15" id="vdi-data">{{exportVDIsData}}</textarea>
     </div> 
 </template>
+
+<template name='lpservers'>
+    <div class="form-group">
+        <label for="comment">VDIs data results:</label>
+        <textarea class="form-control" rows="15" id="lpservers-data">{{exportLPserversData}}</textarea>
+    </div> 
+</template>
+
 
