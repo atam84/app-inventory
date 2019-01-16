@@ -8,7 +8,7 @@ pipeline {
         file(name: "FILE", description: "Choose a file to upload")
     }
     agent {
-        label '${params.AGENT_LABEL_BUILD}'
+        label '"${params.AGENT_LABEL_BUILD}"'
     }
     stages {
         stage('Configuration') {
@@ -21,14 +21,14 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t atamdocker/appinventory:latest -t atamdocker/appinventory:${params.APP_VERSION} .'
+                sh "docker build -t atamdocker/appinventory:latest -t atamdocker/appinventory:${params.APP_VERSION} ."
             }
         }
         stage('Publish Image') {
             steps {
                 withDockerRegistry([ credentialsId: "${credential}", url: "" ]) {
                     sh 'docker push atamdocker/appinventory:latest'
-                    sh 'docker push atamdocker/appinventory:${params.APP_VERSION}'
+                    sh "docker push atamdocker/appinventory:${params.APP_VERSION}"
                 }
             }
         }
