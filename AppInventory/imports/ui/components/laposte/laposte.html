@@ -1,0 +1,190 @@
+<template name='laposte'>
+    <!-- These button are used -->
+    <!-- div class="modal-footer modal-footer-adapter">
+        <button  class="btn btn-success insertLaposteData">insert Laposte Data</button>
+    </div -->
+    <table id="vdis" class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th>hostname</th>
+                <th>To remove</th>
+                <th>Plus 10yo</th>
+                <th>TMA</th>
+                <th>Code app</th>
+                <th>Modele</th>
+                <th>Env</th>
+                <th>OS</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in getLaposteServersDocs}}
+            <tr id="{{item._id}}">
+                <td>{{item.Hostname}}</td>
+                <th>{{item.can_remove}}</th>
+                <td>{{item.is_plus_10y}}</td>
+                <td>{{item.TMA}}</td>
+                <td>{{item.code_appli}}</td>
+                <td>{{item.Modele}}</td>
+                <td>{{item.Environnement}}</td>
+                <td>{{item.Systeme}}</td>
+                <td class="text-center">
+                    <a href="/laposte/server/informations/{{item._id}}" class="btn btn-primary btn-sm get-informations" id={{item._id}}><span class="glyphicon glyphicon-info"></span>...</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>
+
+<template name='lpserverinfo'>
+    {{#with getLaposteServersDoc}}
+    <div class="card">
+        <h6 class="card-header">Server informations: {{Hostname}}</h6>
+        <div class="card-body">
+            <div class="container">
+                <div class="alert alert-secondary" role="alert">
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <div class="col">
+                            <strong>Hostname:</strong> {{Hostname}}
+                        </div>
+                        <div class="col">
+                            <strong>Last access:</strong> {{last_access}}
+                                {{#if last_access}}
+                                    {{last_access}}
+                                {{else}}
+                                    N/A
+                                {{/if}}
+                        </div>
+                        <div class="col">
+                            <strong>TMA:</strong> <span class="badge badge-secondary">
+                                {{#if TMA}}
+                                    {{TMA}}
+                                {{else}}
+                                    N/A
+                                {{/if}}
+                                </span>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <div class="col">
+                            <strong>Planed for conex migration:</strong> 
+                                {{#if plan_conex_migration}}
+                                    {{plan_conex_migration}}
+                                {{else}}
+                                    No
+                                {{/if}}
+                        </div>
+                        <div class="col">
+                            <strong>Planed for itaas migration:</strong>
+                                {{#if plan_itaas_migration}}
+                                    {{plan_itaas_migration}}
+                                {{else}}
+                                    No
+                                {{/if}}
+                        </div>
+                        <div class="col">
+                        <strong> Remove planed:</strong>
+                            {{#if planned_remove}}
+                                {{planned_remove}}
+                            {{else}}
+                                N/A
+                            {{/if}}
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <div class="col">
+                            <strong>is +10y server:</strong>
+                                {{#if is_plus_10y}}
+                                    {{is_plus_10y}}
+                                {{else}}
+                                    No
+                                {{/if}}
+                        </div>
+                        <div class="col">
+                            <strong>Is Messi v2:</strong> <span class="badge badge-secondary">{{Messiv2}}</span>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <div class="col">
+                            <strong>Code application:</strong>
+                                {{#if code_appli}}
+                                    {{code_appli}}
+                                {{else}}
+                                    N/A
+                                {{/if}}
+                        </div>
+                        <div class="col">
+                            <strong>Environnement:</strong> <span class="badge badge-secondary">{{Environnement}}</span>
+                        </div>
+                        <div class="col"></div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 1rem;">
+                        <div class="col">
+                            <strong>System:</strong> {{Systeme}}
+                        </div>
+                        <div class="col">
+                            <strong>Server model:</strong> {{Modele}}
+                        </div>
+                        <div class="col"></div>
+                    </div>
+                </div>
+
+                <div class="alert alert-secondary" role="alert">
+                    <div class="row" style="margin-bottom: 1.2rem;">
+                        <div class="col">
+                            <strong>Server description:</strong><br> {{Description_Serveur}}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-secondary" role="alert">
+                    <div class="row" style="margin-bottom: 1.2rem;">
+                        <div class="col">
+                            <strong>La poste comment:</strong><br> {{Commentaire_Serveur}}
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                {{#autoForm id="UpdateLPservers" type="update" collection=getcollection doc=getLaposteServersDoc}}
+                <div class="alert alert-secondary" role="alert">
+                    <h4 class="alert-heading">TMA Response !</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <p class="lead"><strong>This server can be removed:</strong></p> {{> afQuickField name="can_remove"}}
+                        </div>
+                        <div class="col">
+                            {{> afFormGroup name="user_validation" type="select" options=getallDAS}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{> afQuickField name="tma_comment"  rows=3}}
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <button type="reset" class="btn btn-secondary btn-block">Reset</button>
+                        </div>
+                        <div class="col">
+                            <button type="submit" class="btn btn-success btn-block">Save</button>
+                        </div>
+                    </div>
+                </div>
+                {{/autoForm}}
+            </div> 
+        </div>
+    </div>
+    {{/with}}
+</template>
+
+
+

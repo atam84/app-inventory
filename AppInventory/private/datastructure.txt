@@ -1,0 +1,378 @@
+project : {
+	_id: String,
+	project: String,
+	description: String,
+	comment: String,
+	affectation: Array[{
+		project: String(_id),
+		application: String(_id)
+	}],
+	affectationCount: Number,
+	createAt: Date,
+	isRemoved: Boolean,
+	createdBy: String(user _id)
+}
+
+ressources : {
+	_id : String,
+	firstName: String,
+	lastName: String,
+	email: String,
+	localisation: String(_id),
+	job: String(_id),
+	affectation: Array[{
+		project: String(_id),
+		application: String(_id)
+	}],
+	affectationCount: Number,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+job : {
+	_id: String,
+	name: String,
+	commet: String
+	counter : Number,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+OS : {
+	_id: String,
+	type: String,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+
+Env : {
+	_id: String,
+	name: String,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+technology : {
+	_id: String,
+	name: String,
+	counter : Number,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+Application : {
+	_id: String,
+	name: String,
+	ressources: Array[String(User _id)],
+	responsible: Array[String(User _id)],
+	technologie: Array[String],
+	project: String(_id),
+	description: String,
+	endOfLife: Date,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+localisation : {
+	_id: String,
+	name: String,
+	counter : Number,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+machine_type : { // phisical server, vm, vdi, container
+}
+
+
+Servers : {
+	name: String,
+	ip: String,
+	hostname: String,
+	alias: Array[String],
+	type: String(machine_type),
+	usage: Array[String(env)],
+	localisation: String(localisation),
+	responsible: Array[String(User _id)],
+	ressources: {
+		cpu: Number,
+		core: Number,
+		memory: Number,
+		diskspace: Number,
+	},
+	projectcounter : Number,
+	applicationcounter: Number,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+
+admin : {
+	_id: String,
+	username: String,
+	firstname: String,
+	lastname: String,
+	email: String,
+	password: String,
+	session: String,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+
+
+
+
+
+
+/*******
+
+Servers : {
+	name: String,
+	ip: String,
+	hostname: String,
+	alias: Array[String],
+	type: String(machine_type),
+	usage: Array[String(env)],
+	localisation: {
+		_id: String,
+		name: String,
+		counter : Number,
+		isRemoved: Boolean,
+		createAt: Date,
+		createdBy: String(user _id),
+		commet: String
+	},
+	responsible: Array[String(User _id)],
+	ressources: {
+		cpu: Number,
+		core: Number,
+		memory: Number,
+		diskspace: Number,
+	},
+	projectcounter : Number,
+	applicationcounter: Number,
+	isRemoved: Boolean,
+	createAt: Date,
+	createdBy: String(user _id),
+	commet: String
+}
+
+
+*******/
+
+
+
+
+==> For every insert and update we must convert all strings (name ...) to lower
+    to prevent duplication of data
+
+import { Meteor } from 'meteor/meteor'
+
+check.
+
+Meteor.methods({
+	'set.project'(d_object) {
+
+
+		project = {
+			project: String,
+			description: String,
+			comment: String,
+			affectation: Array[{
+				project: String(_id),
+				application: String(_id)
+			}],
+			affectationCount: 0,
+			createAt: moment().unix(),
+			isRemoved: False,
+			createdBy: this.userID
+		}
+
+
+	},
+	'set.ressource'(d_object) {
+	},
+	'set.job'(d_object) {
+	},
+	'set.os'(d_object) {
+	},
+	'set.env'(d_object) {
+	},
+	'set.technology'(d_object) {
+	},
+	'set.application'(d_object) {
+	},
+	'set.localisation'(d_object) {
+	},
+	'set.server.type'(d_object) {
+	},
+	'set.server'(d_object) {
+	},
+	'set.new.user'(d_object) {
+	}
+});
+
+
+Meteor.methods({
+	'mod.project'(project_id, d_object) {
+	},
+	'mod.ressource'(ressource_id, d_object) {
+	},
+	'mod.job'(job_id, d_object) {
+	},
+	'mod.os'(os_id, d_object) {
+	},
+	'mod.env'(env_id, d_object) {
+	},
+	'mod.technology'(technology_id, d_object) {
+	},
+	'mod.application'(application_id, d_object) {
+	},
+	'mod.localisation'(localisation_id, d_object) {
+	},
+	'mod.server.type'(server_type_id, d_object) {
+	},
+	'mod.server'(server_id, d_object) {
+	},
+	'mod.user'(user_id, d_object) {
+	}
+});
+
+
+Meteor.methods({
+	'rem.project'(project_id) {
+	},
+	'rem.ressource'(ressouce_id) {
+	},
+	'rem.job'(job_id) {
+	},
+	'rem.os'(os_id) {
+	},
+	'rem.env'(env_id) {
+	},
+	'rem.technology'(technology_id) {
+	},
+	'rem.application'(application_id) {
+	},
+	'rem.localisation'(localisation_id) {
+	},
+	'rem.server.type'(server_type_id) {
+	},
+	'rem.server'(server_id) {
+	},
+	'rem.user'(user_id) {
+	}
+);
+
+
+
+
+
+
+
+/*
+Set applications types: []
+    {
+
+    }
+
+Set usages: []
+    {
+        "name": "developpement",
+        "abreviation": "dev"
+    }
+
+Set jobs: []
+    {
+        "name": "Project Management Office",
+        "abreviation": "PMO"
+    }
+
+Set users: []
+    {
+        "firstname": "",
+        "lastname": "",
+        "email": "",
+        "phone": "",
+        "job": {
+            "job_id": "",
+            "name": "",
+            "abreviation": ""
+        }
+    }
+
+Set databases: []
+    {
+
+    }
+
+Set versionningTools: []
+    {
+        "_id": "",
+        "type": "git",
+        "address": "",
+        "hostname": "",
+        "port": ""
+    }
+
+
+
+
+{
+    "what": "application",
+    "name": "",
+    "app_usage": "dev/prod/pprod/int/test",
+    "owner":[
+        {
+            "type": "pmo/tma/techref/pm",
+            "firstname": "",
+            "lastname": "",
+            "email": "",
+            "phone": []
+        }
+    ],
+    "hasGit": true,
+    "git": {
+        "server": "_id",
+        "repo": ""
+    },
+    "hasSVN": false,
+    "svn": {
+        "server": "_id",
+        "repo": ""
+    },
+    "useDB": true,
+    "database": {
+        "name": "",
+        "db_type": "",
+        "db_usage": "dev/prod/pprod/int/test",
+        "server": "",
+        "port": "",
+        "instance": ""
+    },
+    "useWebService": {
+        ""
+    }
+}
+
+*/

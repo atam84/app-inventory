@@ -1,0 +1,60 @@
+<template name='myidCreate'>
+    {{#autoForm collection=getMongoObject id='myid' type='insert'}}
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div class="row">
+                <div class="col">
+                    {{> afQuickField name='das'}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{> afQuickField name='firstName'}}
+                </div>
+                <div class="col">
+                    {{> afQuickField name='lastName'}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{> afQuickField name='email'}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{> afQuickField name='comment' rows=3}}
+                </div>
+            </div>
+            <div class="modal-footer modal-footer-adapter">
+                <button type="reset" class="btn btn-secondary close-modal" data-dismiss="modal">Reset</button>
+                <button type="submit" class="btn btn-success">Create</button>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    {{/autoForm}}
+</template>
+
+<template name='myidCheck'>
+    <div class="row" style="margin-top: 6rem;">
+        <div class="col-3"></div>
+        <div class="col-6">
+            DAS: <input id="das">
+            <button type="submit" class="btn btn-primary check-my-das">Connect</button>
+        </div>
+        <div class="col-3"></div>
+    </div>
+    <div class="row" style="margin-top: 1rem;">
+        <div class="col-3"></div>
+        <div class="col-6">
+            {{#if profileSaved}}
+            <div class="alert alert-success alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Success!</strong> Profile saved, please reconnect and procced to the next step
+            </div>
+            {{/if}}
+        </div>
+        <div class="col-3"></div>
+    </div>
+</template>

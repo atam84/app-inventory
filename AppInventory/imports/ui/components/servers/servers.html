@@ -1,0 +1,89 @@
+<template name='servers'>
+    <div class="row" style="margin-top: 1rem; margin-bottom: 2rem;">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h5><span class="badge badge-primary" style="font-size: 1.3rem;">Manage servers </span></h5>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    {{#autoForm collection=getMongoObject id='myservers' type='insert'}}
+    <!-- {{> afQuickField name='das' value=setScoop}} -->
+    <div class="row">
+        <div class="col">
+            {{> afQuickField name='hostname'}}
+        </div>
+        <div class="col">
+            {{> afQuickField name='ip'}}
+        </div>
+        <div class="col">
+            {{> afQuickField name='type'}}
+        </div>
+        <div class="col">
+            {{> afQuickField name='os_version'}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{> afQuickField name='isMutualized'}}
+        </div>
+        <div class="col">
+            {{> afQuickField name='localization'}}
+        </div>
+        <div class="col">
+            {{> afQuickField name='scoop'}}
+        </div>
+        <div class="col">
+            {{> afQuickField name='application' type="text"}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{> afQuickField name='comment' rows=3}}
+        </div>
+    </div>
+    <div class="modal-footer modal-footer-adapter">
+        <button type="reset" class="btn btn-secondary">Reset</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    </div>
+    {{/autoForm}}
+    {{> serverslist}}
+</template>
+
+
+
+
+<template name="serverslist">
+    <table id="vdis" class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th>hostname</th>
+                <th>ip</th>
+                <th>localization</th>
+                <th>type</th>
+                <th>version</th>
+                <th>scoop</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in getServersDocs}}
+            <tr id="{{item._id}}">
+                <td>{{item.hostname}}</td>
+                <td>{{item.ip}}</td>
+                <td>{{item.localization}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.os_version}}</td>
+                <td>{{item.scoop}}</td>
+                <td class="text-center">
+                    <a href="#" class="btn btn-danger btn-sm server-remove" id={{item._id}}><span class="glyphicon glyphicon-remove"></span>Del</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>
+
+
+

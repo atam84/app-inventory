@@ -1,0 +1,29 @@
+<template name="inModal">
+    <!-- modal is link >
+    {{#if isLink}}
+    <a class="{{class}} openInModal" href="#" data-toggle="modal" data-target="#inModal" data-whatever="@mdo">{{label}}</a>
+    {{else}}
+    <button type="button" class="btn {{class}} openInModal" data-toggle="modal" data-target="#inModal" data-whatever="@mdo">{{label}}</button>
+    {{/if}}
+     modal is button -->
+    <div class="modal fade" id="inModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{thisModalTitle}}</h5>
+                    <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <fieldset>
+                        <div class="container">
+                            {{alertMessage}}
+                            {{> UI.dynamic template=thisInModal}}
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

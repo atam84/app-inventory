@@ -1,0 +1,49 @@
+<template name="check">
+    <div class="row" style="margin: 1rem;"><h5>{{getVdiFound}} Machines not found in local inventory.</h5></div>
+    <table class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>hostname</th>
+                <th>ip</th>
+                <th>cluster</th>
+                <th>type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in notExistingVdi}}
+            <tr>
+                <td>{{@index}}</td>
+                <td>{{item.hostname}}</td>
+                <td>{{item.ip}}</td>
+                <td>{{item.cluster}}</td>
+                <td>{{item.type}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div class="row" style="margin: 1rem;"><h5>{{getVdiNotFound}} Machines not found in infrastructure inventory.</h5></div>
+    <table class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Das</th>
+                <th>ip</th>
+                <th>type</th>
+                <th>localization</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in reverseNotExistingVdi}}
+            <tr class="{{item.localization}}">
+                <td>{{@index}}</td>
+                <td><a href="/my-id/my-vdi/{{item.das}}">{{item.das}}</a></td>
+                <td>{{item.ip}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.localization}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>

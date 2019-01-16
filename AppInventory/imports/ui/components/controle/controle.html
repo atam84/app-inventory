@@ -1,0 +1,235 @@
+<template name='controle'>
+    <!-- button class="btn btn-sm btn-success show-vdi">List of all vdis added</button>
+    <button class="btn btn-sm btn-primary show-users">List of all users registred</button>
+    <button class="btn btn-sm btn-primary show-data-users">Export users data</button>
+    <button class="btn btn-sm btn-primary show-data-vdis">Export VDIs data</button>
+    {{#if showUser}}
+        {{> allusers}}
+    {{/if}}
+    {{#if showVdis}}
+        {{> allvdi}}
+    {{/if}}
+    {{#if showUserData}}
+        
+    {{/if}}
+    {{#if showVdiData}}
+        
+    {{/if}} -->
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#allusers">All users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#showVdis">All VDIs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#unUsedVid">Unused VDI</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#quickCheck">Quick check</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#showRemovedUsers">Removed Users</a>
+        </li>
+        <!-- li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#showUserData">Export users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#showVdiData">Export VDIs</a>
+        </li -->
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#statistics">Statistics</a>
+        </li>
+  </ul>
+  
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane container active" id="allusers">
+        {{> allusers}}
+    </div>
+    <div class="tab-pane container fade" id="showVdis">
+        {{> allvdi}}
+    </div>
+    <!-- div class="tab-pane container fade" id="showUserData">
+        {{> userdata}}
+    </div>
+    <div class="tab-pane container fade" id="showVdiData">
+        {{> vdidata}}
+    </div -->
+    <div class="tab-pane container fade" id="unUsedVid">
+        {{> unusedvdi}}
+    </div>
+    <div class="tab-pane container fade" id="showRemovedUsers">
+        {{> removedusers}}
+    </div>
+    <div class="tab-pane container fade" id="quickCheck">
+        {{> check}}
+    </div>
+    <div class="tab-pane container fade" id="statistics">
+        {{> statistics}}
+    </div>
+    
+  </div>
+</template>
+
+
+<template name='statistics'>
+        <div class="row" style="margin: 1rem;"><h5>Statictics.</h5></div>
+        <table class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+            <thead>
+                <tr>
+                    <th>Machine type</th>
+                    <th>Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each item in getVMsStatistics}}
+                <tr>
+                    <td>{{item.type}}</td>
+                    <td>{{item.number}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+</template>
+
+<template name='removedusers'>
+    <div class="row" style="margin: 1rem;"><h5>Unused VDIs.</h5></div>
+    <table class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th>DAS</th>
+                <th>fist name</th>
+                <th>last name</th>
+                <th>email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in getRemovedUsers}}
+            <tr>
+                <td>{{item.das}}</td>
+                <td>{{item.firstName}}</td>
+                <td>{{item.lastName}}</td>
+                <td>{{item.email}}</td>
+                <td class="text-center">
+                    <a href="#" class="btn btn-danger btn-sm user-delete" id={{item._id}}><span class="glyphicon glyphicon-remove"></span>Del</a>
+                    <a href="#" class="btn btn-success btn-sm user-restore" id={{item._id}}><span class="glyphicon glyphicon-remove"></span>Restore</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>
+
+<template name='unusedvdi'>
+        <div class="row" style="margin: 1rem;"><h5>Unused VDIs.</h5></div>
+        <table class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+            <thead>
+                <tr>
+                    <th>ip</th>
+                    <th>localiztion</th>
+                    <th>type</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each item in getAllUnusedVdis}}
+                <tr>
+                    <td>{{item.ip}}</td>
+                    <td>{{item.localization}}</td>
+                    <td>{{item.type}}</td>
+                    <td class="text-center">
+                        <a href="#" class="btn btn-success btn-sm vdi-clame" id={{item._id}}><span class="glyphicon glyphicon-remove"></span>Clame</a>
+                        <a href="#" class="btn btn-danger btn-sm vdi-remove" id={{item._id}}><span class="glyphicon glyphicon-remove"></span>Del</a>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+</template>
+
+<!-- template name='userdata'>
+    <div class="form-group">
+        <label for="comment">User data results:</label>
+        <textarea class="form-control" rows="15" id="user-data">{{exportUserData}}</textarea>
+    </div> 
+</template>
+
+<template name='vdidata'>
+    <div class="form-group">
+        <label for="comment">VDIs data results:</label>
+        <textarea class="form-control" rows="15" id="vdi-data">{{exportVDIsData}}</textarea>
+    </div> 
+</template -->
+
+
+<template name='allvdi'>
+    <div class="row" style="margin: 1rem;"><h5>{{counter}} VDI registred.</h5></div>
+    <table class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th>ip</th>
+                <th>owner</th>
+                <th>fistname</th>
+                <th>lastname</th>
+                <th>localiztion</th>
+                <th>type</th>
+                <th>scoop</th>
+                <th>application</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in getAllVdiDocs}}
+            <tr>
+                <td>{{item.ip}}</td>
+                <td><a href="/my-id/my-vdi/{{item.das}}">{{item.das}}</a></td>
+                {{#with vidusers item.das}}
+                <td>{{firstName}}</td>
+                <td>{{lastName}}</td>
+                {{/with}}
+                <td>{{item.localization}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.scoop}}</td>
+                <td>{{item.application}}</td>
+                <td class="text-center">
+                    <a href="#" class="btn btn-danger btn-sm detach-vdi" id={{item._id}}><span class="glyphicon glyphicon-remove"></span>Detach</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>
+
+
+<template name='allusers'>
+        <div class="row" style="margin: 1rem;"><h5>{{counter}} user registred.</h5></div>
+    <table class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th>DAS</th>
+                <th>fist name</th>
+                <th>last name</th>
+                <th>owned vdi</th>
+                <th>email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in getAllUsers}}
+            <tr>
+                <td><a href="/my-id/my-vdi/{{item.das}}">{{item.das}}</a></td>
+                <td>{{item.firstName}}</td>
+                <td>{{item.lastName}}</td>
+                <td>{{countuservdi item.das}}</td>
+                <td>{{item.email}}</td>
+                <td class="text-center">
+                    <a href="#" class="btn btn-danger btn-sm user-remove" id={{item._id}}><span class="glyphicon glyphicon-remove"></span>Del</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>

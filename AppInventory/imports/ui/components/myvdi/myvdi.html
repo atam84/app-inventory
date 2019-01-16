@@ -1,0 +1,70 @@
+<template name='myvdi'>
+    {{#with getUserInfo}}
+    <div class="row" style="margin-top: 1rem; margin-bottom: 2rem;">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h5>DAS: <span class="badge badge-primary" style="font-size: 1.3rem;">{{das}}</span> - {{firstName}} {{lastName}}</h5>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    {{/with}}
+    {{#autoForm collection=getMongoObject id='myvdi' type='update'}}
+        {{> afQuickField name='das' value=setMyDas}}
+        <div class="row">
+            <div class="col">
+                {{> afQuickField name='ip'}}
+            </div>
+            <div class="col">
+                {{> afQuickField name='type'}}
+            </div>
+            <div class="col">
+                {{> afQuickField name='localization'}}
+            </div>
+            <div class="col">
+                {{> afQuickField name='scoop'}}
+            </div>
+            <div class="col">
+                {{> afQuickField name='application' type="text"}}
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col">
+            {{> afQuickField name='comment' rows=3}}
+        </div>
+    </div>
+    <div class="modal-footer modal-footer-adapter">
+        <button type="reset" class="btn btn-secondary">Reset</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    </div>
+    {{/autoForm}}
+    <table id="vdis" class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th>ip</th>
+                <th>localiztion</th>
+                <th>type</th>
+                <th>scoop</th>
+                <th>applications</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in getMyVdiDocs}}
+            <tr id="{{item._id}}">
+                <td>{{item.ip}}</td>
+                <td>{{item.localization}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.scoop}}</td>
+                <td>{{item.application}}</td>
+                <td class="text-center">
+                    <a href="#" class="btn btn-danger btn-sm vdi-remove" id={{item._id}}><span class="glyphicon glyphicon-remove"></span>Del</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>
+
+
+

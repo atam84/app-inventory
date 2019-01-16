@@ -1,0 +1,775 @@
+/*  inModal
+    Create simple project entry
+    project name: __________
+    project code: __________     project id: ____
+    tags:         _______________________________
+    start:        _______ End: ______ Mounts: ___
+    X project is freezed ?
+    description:  _______________________________
+    comment:      _______________________________
+                  _______________________________
+                  _______________________________
+                  _______________________________
+                              cancel    validate
+*/
+ 
+<template name='insertProject'>
+    {{#autoForm collection=projectSchema id="insertProject" type="insert"}}
+        <fieldset>
+        <legend>Add new project</legend>
+            {{> afQuickField name='project' autofocus=''}}
+            {{> afQuickField name='projectId'}}
+            {{> afQuickField name='projectCode'}}
+            {{> afQuickField name='tags'}}
+            {{> afQuickField name='info.startDate'}}
+            {{> afQuickField name='info.endDate'}}
+            {{> afQuickField name='info.timeLife'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    {{/autoForm}}
+</template>
+ 
+<template name='updateProject'>
+    {{#autoForm collection=projectSchema doc=selectedProject id="updateProject" type="update"}}
+        <fieldset>
+        <legend>Add new project</legend>
+            {{> afQuickField name='project' autofocus=''}}
+            {{> afQuickField name='projectId'}}
+            {{> afQuickField name='projectCode'}}
+            {{> afQuickField name='tags'}}
+            {{> afQuickField name='info.startDate'}}
+            {{> afQuickField name='info.endDate'}}
+            {{> afQuickField name='info.timeLife'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Update</button>
+    {{/autoForm}}
+</template>
+ 
+Template.insertProject.helpers({
+    'projectSchema': () => {
+        return collections.projects;
+    }
+});
+ 
+Template.updateProject.helpers({
+    'projectSchema': () => {
+        return collections.projects;
+    },
+    'selectedProject': () => {
+        return collections.projects.findOne({_id: session.get('selectedProject')});
+    }
+});
+ 
+project = {
+    project: {
+        type: String,
+        label: 'Project name',
+        max: 50,
+        required: true
+    },
+    projectId: {
+        type: String,
+        label: 'Project ID',
+        max: 8,
+        required: true
+    },
+    projectCode: {
+        type: String,
+        label: 'Project code',
+        max: 25,
+        required: true
+    },
+    tags: {
+        type: String,
+        label: 'Tags',
+        max: 255,
+        required: true
+    },
+    info: Object,
+    'info.startDate' : {
+        type: Date,
+        label: 'Start date',
+        required: false
+    },
+    'info.endDate': {
+        type: Date,
+        label: 'End life',
+        required: false
+    },
+    'info.timeLife': {
+        type: Number,
+        label: 'Mounts to live',
+        required: false
+    },
+    status: Object,
+    'status.isRemoved': {
+        type: Boolean,
+        autoValue: false,
+        required: false
+    },
+    'status.isFreezed': {
+        type: Boolean,
+        autoValue: false,
+        required: false
+    },
+    description: {
+        type: String,
+        label: 'Description',
+        max: 255,
+        required: false
+    },
+    comment: {
+        type: String,
+        label: 'Comment',
+        max: 2048,
+        required: false
+    }
+}
+
+<template name='insertRessource'>
+    {{#autoForm collection=ressourceSchema id="insertRessource" type="insert"}}
+        <fieldset>
+        <legend>Add new human ressource</legend>
+            {{> afQuickField name='companyId' autofocus=''}}
+            {{> afQuickField name='firstName'}}
+            {{> afQuickField name='lastName'}}
+            {{> afQuickField name='email'}}
+            {{> afQuickField name='localization'}}
+            {{> afQuickField name='job'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    {{/autoForm}}
+</template>
+ 
+<template name='updateRessource'>
+    {{#autoForm collection=ressourceSchema doc=selectedRessource id="updateRessource" type="update"}}
+        <fieldset>
+        <legend>Update human ressource</legend>
+            {{> afQuickField name='companyId' autofocus=''}}
+            {{> afQuickField name='firstName'}}
+            {{> afQuickField name='lastName'}}
+            {{> afQuickField name='email'}}
+            {{> afQuickField name='localization'}}
+            {{> afQuickField name='job'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Update</button>
+    {{/autoForm}}
+</template>
+ 
+Template.insertRessource.helpers({
+    'ressourceSchema': () => {
+        return collections.ressources;
+    }
+});
+ 
+Template.updateRessource.helpers({
+    'ressourceSchema': () => {
+        return collections.ressources;
+    },
+    'selectedRessource': () => {
+        return collections.ressources.findOne({_id: session.get('selectedRessource')});
+    }
+});
+ 
+ressources = {
+    companyId: {
+        type: String,
+        label: 'Company ID',
+        max: 50,
+        required: true
+    },
+    firstName:  {
+        type: String,
+        label: 'First name',
+        max: 50,
+        required: true
+    },
+    lastName:  {
+        type: String,
+        label: 'Last name',
+        max: 50,
+        required: true
+    },
+    email:  {
+        type: String,
+        label: 'E-mail',
+        max: 150,
+        RegEx: SimpleSchema.RegEx.Email,
+        required: true
+    },
+    localization:  {
+        type: String,
+        label: 'Localization',
+        max: 50,
+        required: true
+        //will be selected from list
+    },
+    job:  {
+        type: String,
+        label: 'Job title',
+        max: 50,
+        required: true
+        //will be selected from list
+    },
+    status: Object,
+    'status.isRemoved': {
+        type: Boolean,
+        required: false,
+        autoValue: false
+    },
+    description:  {
+        type: String,
+        label: 'Description',
+        max: 255,
+        required: false,
+        //autoForm: {}
+    },
+    commet: {
+        type: String,
+        label: 'Comment',
+        max: 2048,
+        required: false
+    }
+}
+
+
+
+
+
+<template name='insertJob'>
+    {{#autoForm collection=jobSchema id="insertJob" type="insert"}}
+        <fieldset>
+        <legend>Add new business</legend>
+            {{> afQuickField name='business' autofocus=''}}
+            {{> afQuickField name='short_business'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    {{/autoForm}}
+</template>
+ 
+<template name='updateJob'>
+    {{#autoForm collection=jobSchema doc=selectedJob id="updateJob" type="update"}}
+        <fieldset>
+        <legend>Update business</legend>
+            {{> afQuickField name='business' autofocus=''}}
+            {{> afQuickField name='short_business'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Update</button>
+    {{/autoForm}}
+</template>
+ 
+Template.insertRessource.helpers({
+    'jobSchema': () => {
+        return collections.jobs;
+    }
+});
+ 
+Template.updateRessource.helpers({
+    'jobSchema': () => {
+        return collections.jobs;
+    },
+    'selectedJob': () => {
+        return collections.jobs.findOne({_id: session.get('selectedJob')});
+    }
+});
+ 
+job = {
+    business: {
+        type: String,
+        label: 'Business',
+        max: 50,
+        required: true
+    },
+    short_business: {
+        type: String,
+        label: 'short business',
+        max: 10,
+        required: true
+    },
+    status: Object,
+    'status.isRemoved': {
+        type: Boolean,
+        required: false,
+        autoValue: false
+    },
+    description:  {
+        type: String,
+        label: 'Description',
+        max: 255,
+        required: false,
+        //autoForm: {}
+    },
+    commet: {
+        type: String,
+        label: 'Comment',
+        max: 2048,
+        required: false
+    }
+}
+
+
+
+
+
+
+<template name='insertEnv'>
+    {{#autoForm collection=ressourceSchema id="insertEnv" type="insert"}}
+        <fieldset>
+        <legend>Add new environnement</legend>
+            {{> afQuickField name='name' autofocus=''}}
+            {{> afQuickField name='shortName'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    {{/autoForm}}
+</template>
+ 
+<template name='updateEnv'>
+    {{#autoForm collection=envSchema doc=selectedEnv id="updateEnv" type="update"}}
+        <fieldset>
+        <legend>Update environnement</legend>
+            {{> afQuickField name='name' autofocus=''}}
+            {{> afQuickField name='shortName'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Update</button>
+    {{/autoForm}}
+</template>
+ 
+Template.insertEnv.helpers({
+    'envSchema': () => {
+        return collections.envs;
+    }
+});
+ 
+Template.updateEnv.helpers({
+    'envSchema': () => {
+        return collections.envs;
+    },
+    'selectedEnv': () => {
+        return collections.envs.findOne({_id: session.get('selectedEnv')});
+    }
+});
+ 
+Env = {
+    name: {
+        type: String,
+        label: 'Environnement',
+        required: true,
+        max: 60
+    },
+    shortName: {
+        type: String,
+        label: 'Short name',
+        required: true,
+        max: 10
+    },
+    status: Object,
+    'status.isRemoved': {
+        type: Boolean,
+        required: false,
+        autoValue: false
+    },
+    description:  {
+        type: String,
+        label: 'Description',
+        max: 255,
+        required: false,
+        //autoForm: {}
+    },
+    commet: {
+        type: String,
+        label: 'Comment',
+        max: 2048,
+        required: false
+    }
+}
+
+
+
+
+
+
+<template name='insertTechnology'>
+    {{#autoForm collection=ressourceTechnology id="insertTechnology" type="insert"}}
+        <fieldset>
+        <legend>Add new technology</legend>
+            {{> afQuickField name='technology' autofocus=''}}
+            {{> afQuickField name='description'}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    {{/autoForm}}
+</template>
+ 
+<template name='updateTechnology'>
+    {{#autoForm collection=TechnologySchema doc=selectedTechnology id="updateTechnology" type="update"}}
+        <fieldset>
+        <legend>Update technology</legend>
+            {{> afQuickField name='technology' autofocus=''}}
+            {{> afQuickField name='description'}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Update</button>
+    {{/autoForm}}
+</template>
+ 
+Template.insertTechnology.helpers({
+    'technologySchema': () => {
+        return collections.technologies;
+    }
+});
+ 
+Template.updateTechnology.helpers({
+    'technologySchema': () => {
+        return collections.technologies;
+    },
+    'selectedTechnology': () => {
+        return collections.technologies.findOne({_id: session.get('selectedTechnology')});
+    }
+});
+ 
+technology = {
+    technology: {
+        type: String,
+        label: 'Technology',
+        required: true
+    },
+    status: Object,
+    'status.isRemoved': {
+        type: Boolean,
+        required: false,
+        autoValue: false
+    },
+    description:  {
+        type: String,
+        label: 'Description',
+        max: 255,
+        required: false,
+        //autoForm: {}
+    },
+}
+
+
+
+
+
+<template name='insertLocalization'>
+    {{#autoForm collection=ressourceLocalization id="insertLocalization" type="insert"}}
+        <fieldset>
+        <legend>Add new technology</legend>
+            {{> afQuickField name='name' autofocus=''}}
+            {{> afQuickField name='address'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    {{/autoForm}}
+</template>
+ 
+<template name='updateLocalization'>
+    {{#autoForm collection=localizationSchema doc=selectedLocalization id="updateLocalization" type="update"}}
+        <fieldset>
+        <legend>Update localization</legend>
+            {{> afQuickField name='name' autofocus=''}}
+            {{> afQuickField name='address'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Update</button>
+    {{/autoForm}}
+</template>
+ 
+Template.insertLocalization.helpers({
+    'localizationSchema': () => {
+        return collections.localizations;
+    }
+});
+ 
+Template.updateLocalization.helpers({
+    'localizationSchema': () => {
+        return collections.localizations;
+    },
+    'selectedLocalization': () => {
+        return collections.localizations.findOne({_id: session.get('selectedLocalization')});
+    }
+});
+
+localization = {
+    name: {
+        type: String,
+        label: 'Localization name',
+        required: true,
+        max: 50
+    },
+    address: {
+        type: String,
+        label: 'Address',
+        required: false,
+        max: 255
+    },
+    status: Object,
+    'status.isRemoved': {
+        type: Boolean,
+        required: false,
+        autoValue: false
+    },
+    description:  {
+        type: String,
+        label: 'Description',
+        max: 255,
+        required: false,
+        //autoForm: {}
+    },
+    commet: {
+        type: String,
+        label: 'Comment',
+        max: 2048,
+        required: false
+    }
+}
+ 
+machine_type = { // phisical server, vm, vdi, container
+}
+
+
+
+
+<template name='insertOs'>
+    {{#autoForm collection=ressourceOs id="insertOs" type="insert"}}
+        <fieldset>
+        <legend>Add new Os</legend>
+            {{> afQuickField name='name' autofocus=''}}
+            {{> afQuickField name='address'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    {{/autoForm}}
+</template>
+ 
+<template name='updateOs'>
+    {{#autoForm collection=osSchema doc=selectedOs id="updateOs" type="update"}}
+        <fieldset>
+        <legend>Update os</legend>
+            {{> afQuickField name='osType'}}
+            {{> afQuickField name='name' autofocus=''}}
+            {{> afQuickField name='version'}}
+            {{> afQuickField name='cost.installation'}}
+            {{> afQuickField name='cost.license'}}
+            {{> afQuickField name='cost.administration'}}
+            {{> afQuickField name='description'}}
+            {{> afQuickField name='comment' rows=4}}
+        </fieldset>
+        <button type="reset" class="btn btn-primary">Cancel</button>
+        <button type="submit" class="btn btn-success">Update</button>
+    {{/autoForm}}
+</template>
+ 
+Template.insertOs.helpers({
+    'osSchema': () => {
+        return collections.os;
+    }
+});
+ 
+Template.updateOs.helpers({
+    'osSchema': () => {
+        return collections.os;
+    },
+    'selectedOs': () => {
+        return collections.os.findOne({_id: session.get('selectedOs')});
+    }
+});
+
+
+
+OS = {
+    osType: {
+        type: String,
+        label: 'OS type',
+        required: true,
+        autoform: {
+            type: 'select',
+            options: function() {
+                return [
+                    {label: "Linux", value: "Linux"},
+                    {label: "BSD", value: "BSD"},
+                    {label: "Windows", value: "Windows"},
+                    {label: "AIX", value: "AIX"},
+                    {label: "HP-UX", value: "HP-UX"},
+                    {label: "Solaris", value: "Solaris"},
+                    {label: "MacOS", value: "MacOS"},
+                    {label: "PalmOS", value: "PalmOS"},
+                    {label: "ChromOS", value: "ChromOS"},
+                    {label: "Android", value: "Android"},
+                    {label: "iOS", value: "iOS"},
+                    {label: "Other", value: "Other"},
+                ];
+            }
+        }
+    },
+    name: {
+        type: String,
+        label: 'OS name',
+        required: true
+    },
+    version: {
+        type: String,
+        label: 'Version',
+        required: true
+    },
+    cost: Object,
+    'cost.installation': {
+        type: Number,
+        label: "Installation cost",
+        required: false
+    },
+    'cost.license': {
+        type: Number,
+        label: "License cost",
+        required: false
+    },
+    'cost.administration': {
+        type: Number,
+        label: "Administration cost",
+        required: false
+    },
+    status: Object,
+    'status.isRemoved': {
+        type: Boolean,
+        required: false,
+        autoValue: false
+    },
+    description:  {
+        type: String,
+        label: 'Description',
+        max: 255,
+        required: false,
+        //autoForm: {}
+    },
+    commet: {
+        type: String,
+        label: 'Comment',
+        max: 2048,
+        required: false
+    }
+}
+
+
+
+
+
+
+Servers = {
+    name: String,
+    hostname: String,
+    alias: [String],
+    ip: [{addr: String, target: String}],
+    type: String,
+    applications: [{app: applicationId, env: envId}],
+    localization: localizationId,
+    responsible: [userId],
+    ressources: {
+        cpu: Number,
+        core: Number,
+        memory: Number,
+        diskSpace: Number,
+    },
+    cost: {
+        core: Number,
+        cpu: Number,
+        memory: Number,
+        diskSpace: Number
+    },
+    cost: Object,
+    'cost.installation': {
+        type: Number,
+        label: "Installation cost",
+        required: false
+    },
+    'cost.license': {
+        type: Number,
+        label: "License cost",
+        required: false
+    },
+    'cost.administration': {
+        type: Number,
+        label: "Administration cost",
+        required: false
+    },
+    status: Object,
+    'status.isRemoved': {
+        type: Boolean,
+        required: false,
+        autoValue: false
+    },
+    'status.isShutdown': {
+        type: Boolean,
+        required: false,
+        autoValue: false
+    },
+    description:  {
+        type: String,
+        label: 'Description',
+        max: 255,
+        required: false,
+        //autoForm: {}
+    },
+    commet: {
+        type: String,
+        label: 'Comment',
+        max: 2048,
+        required: false
+    }
+}
+ 
+Application = {
+    name: String,
+    ressources: [userId],
+    responsible: [userId],
+    technologie: [technologyId],
+    project: projectId,
+    servers: [{server: serverId, env: envId}],
+    status: {
+        isRemoved: Boolean,
+        freezed: Boolean
+    },
+    description: String,
+    commet: String
+}
+ 
+admin = {
+    username: String,
+    firstname: String,
+    lastname: String,
+    email: String,
+    password: String,
+    session: String,
+    commet: String
+}
+

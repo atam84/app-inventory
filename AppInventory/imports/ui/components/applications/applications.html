@@ -1,0 +1,106 @@
+<template name="addApps">
+    <!-- applications name, code, CP, RA, description, staff -->
+    <div class="row" style="margin-top: 1rem; margin-bottom: 2rem;">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h5><span class="badge badge-primary" style="font-size: 1.3rem;">Add applications</span></h5>
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+    {{#autoForm id="application" type="insert" collection=getMongoObject}}
+    <div class="row">
+        <div class="col">{{> afQuickField name='appName'}}</div>
+        <div class="col">{{> afQuickField name='code'}}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{> afQuickField name='cp'}}</div>
+        <div class="col">{{> afQuickField name='ra'}}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{> afQuickField name='configURL'}}</div>
+        <div class="col">{{> afQuickField name='staff'}}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{> afQuickField name='scoop'}}</div>
+        <div class="col">{{> afQuickField name='comment' rows=3}}</div>
+    </div>
+    <!-- {{> afQuickFields}} -->
+    <div class="modal-footer modal-footer-adapter">
+        <button type="reset" class="btn btn-secondary">Reset</button>
+        <button type="submit" class="btn btn-success">Create</button>
+    </div>
+    {{/autoForm}}
+</template>
+
+
+<template name="listApps">
+    <div class="row" style="margin-top: 1rem; margin-bottom: 2rem;">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <h5><span class="badge badge-primary" style="font-size: 1.3rem;">Applications list </span></h5>
+        </div>
+        <div class="col-4">
+            <button class="btn btn-sm btn-secondary add-new-applications">+</button>
+        </div>
+    </div>
+
+    <table id="vdis" class="table table-bordered table-hover table-sm" style="margin-top: 1rem;">
+        <thead>
+            <tr>
+                <th>App name</th>
+                <th>Code</th>
+                <th>CP</th>
+                <th>RA</th>
+                <th>Lot</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each item in getapplicationsDocs}}
+            <tr id="{{item._id}}">
+                <td>{{item.appName}}</td>
+                <td>{{item.code}}</td>
+                <td>{{item.cp}}</td>
+                <td>{{item.ra}}</td>
+                <td>{{item.scoop}}</td>
+                <td class="text-center">
+                    <a href="#" class="btn btn-danger btn-sm app-remove" id={{item._id}}><span class="glyphicon glyphicon-remove"></span>Del</a>
+                    <a href="#" class="btn btn-primary btn-sm app-details" id={{item._id}}><span class="glyphicon glyphicon-edit"></span>Detail</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</template>
+
+
+<template name="viewApps">
+    Edit Applications
+    {{#autoForm id="editapplication" type="update" collection=getMongoObject doc=editSelectedApp}}
+    <div class="row">
+        <div class="col">{{> afQuickField name='appName'}}</div>
+        <div class="col">{{> afQuickField name='code'}}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{> afQuickField name='cp'}}</div>
+        <div class="col">{{> afQuickField name='ra'}}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{> afQuickField name='configURL'}}</div>
+        <div class="col">{{> afQuickField name='staff'}}</div>
+    </div>
+    <div class="row">
+        <div class="col">{{> afQuickField name='scoop'}}</div>
+        <div class="col">{{> afQuickField name='comment' rows=3}}</div>
+    </div>
+    <!-- {{> afQuickFields}} -->
+    <div class="modal-footer modal-footer-adapter">
+        <button type="reset" class="btn btn-secondary">Reset</button>
+        <button type="submit" class="btn btn-success">Update</button>
+    </div>
+    {{/autoForm}}
+</template>
+
+
+

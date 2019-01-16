@@ -1,0 +1,36 @@
+<template name='controle-exports'>
+    <ul class="nav nav-tabs">
+        <li class="nav-item active">
+            <a class="nav-link" data-toggle="tab" href="#showUserData">Export users</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#showVdiData">Export VDIs</a>
+        </li>
+  </ul>
+  
+  <!-- Tab panels -->
+  <div class="tab-content">
+    <div class="tab-pane container fade" id="showUserData">
+        {{> userdata}}
+    </div>
+    <div class="tab-pane container fade" id="showVdiData">
+        {{> vdidata}}
+    </div>
+  </div>
+</template>
+
+
+<template name='userdata'>
+    <div class="form-group">
+        <label for="comment">User data results:</label>
+        <textarea class="form-control" rows="15" id="user-data">{{exportUserData}}</textarea>
+    </div> 
+</template>
+
+<template name='vdidata'>
+    <div class="form-group">
+        <label for="comment">VDIs data results:</label>
+        <textarea class="form-control" rows="15" id="vdi-data">{{exportVDIsData}}</textarea>
+    </div> 
+</template>
+
