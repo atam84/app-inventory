@@ -1,4 +1,9 @@
 pipeline {
+    agent {
+        node {
+            label 'docker-node'
+        }
+    }
     parameters {
         string(name: 'APP_VERSION', defaultValue: '0.4b', description: 'Tag this build with version.')
         string(name: 'DOCKER_REGISTRY', defaultValue: '', description: 'Your docker registry, if this value is blanc the public registry should be used.')
@@ -10,11 +15,6 @@ pipeline {
         choice(name: 'NODEJS_VERSION', choices: ['11', '10', '9', '8', '4'], description: 'Select major version of NodeJS to use.')
         choise(name: 'METEOR_VERSION', choices: ['1.8', '1.7', '1.6', '1.5', '1.4'], description: 'Select version of MeteorJS to use.')
         booleanParam(name: 'FROM_SCRATCH_BUILD', defaultValue: true, description: 'Build from scratch rader than use existing base image.')
-    }
-    agent {
-        node {
-            label 'docker-node'
-        }
     }
     stages {
         stage('Configuration') {
