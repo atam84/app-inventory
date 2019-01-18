@@ -22,6 +22,9 @@ pipeline {
                 echo "APP_VERSION = ${params.APP_VERSION}"
                 echo "DOCKER_REGISTRY = ${params.DOCKER_REGISTRY}"
                 echo "TAGS = ${params.TAGS}"
+                params.TAGS.split().each { tag ->
+                    echo " image will be tagged : ${tag}"
+                }
                 echo "CLEAN_UP = ${params.CLEAN_UP}"
                 echo "BUILD_NODE = ${params.BUILD_NODE}"
                 echo "PUSH_IN_REGISTRY = ${params.PUSH_IN_REGISTRY}"
