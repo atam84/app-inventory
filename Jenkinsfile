@@ -13,7 +13,7 @@ pipeline {
         booleanParam(name: 'CLEAN_UP', defaultValue: false, description: 'Remove build images from the build node.')
         choice(name: 'BUILD_NODE', choices: ['docker-node', 'master', 'Three'], description: 'Select the build node, where the build will be performed.')
         choice(name: 'NODEJS_VERSION', choices: ['11', '10', '9', '8', '4'], description: 'Select major version of NodeJS to use.')
-        choise(name: 'METEOR_VERSION', choices: ['1.8', '1.7', '1.6', '1.5', '1.4'], description: 'Select version of MeteorJS to use.')
+        choice(name: 'METEOR_VERSION', choices: ['1.8', '1.7', '1.6', '1.5', '1.4'], description: 'Select version of MeteorJS to use.')
         booleanParam(name: 'FROM_SCRATCH_BUILD', defaultValue: true, description: 'Build from scratch rader than use existing base image.')
     }
     stages {
