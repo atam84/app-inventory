@@ -20,7 +20,7 @@ pipeline {
         stage('Configuration') {
             steps {
                 echo "APP_VERSION = ${params.APP_VERSION}"
-                echo "DOCKER_REGISTRY = ${params.}"
+                echo "DOCKER_REGISTRY = ${params.DOCKER_REGISTRY}"
                 echo "TAGS = ${params.TAGS}"
                 echo "CLEAN_UP = ${params.CLEAN_UP}"
                 echo "BUILD_NODE = ${params.BUILD_NODE}"
