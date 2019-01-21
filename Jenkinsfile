@@ -1,9 +1,12 @@
 pipeline {
+    /*
     agent {
         node {
             label 'docker-node'
         }
     }
+    */
+    agent any
     parameters {
         string(name: 'APP_VERSION', defaultValue: '0.4b', description: 'Tag this build with version.')
         string(name: 'DOCKER_REGISTRY', defaultValue: '', description: 'Your docker registry, if this value is blanc the public registry should be used.')
@@ -19,10 +22,12 @@ pipeline {
     stages {
         stage('Configuration') {
             steps {
+                /*
+                def tags = params.TAGS
                 echo "APP_VERSION = ${params.APP_VERSION}"
                 echo "DOCKER_REGISTRY = ${params.DOCKER_REGISTRY}"
                 echo "TAGS = ${params.TAGS}"
-                params.TAGS.split().each { tag ->
+                tags.split().each { tag ->
                     echo " image will be tagged : ${tag}"
                 }
                 echo "CLEAN_UP = ${params.CLEAN_UP}"
@@ -32,11 +37,12 @@ pipeline {
                 echo "NODEJS_VERSION = ${params.NODEJS_VERSION}"
                 echo "METEOR_VERSION = ${params.METEOR_VERSION}"
                 echo "FROM_SCRATCH_BUILD = ${params.FROM_SCRATCH_BUILD}"
+                */
             }
         }
         stage('Build Docker Image') {
             steps {
-                echo "docker build -t atamdocker/appinventory:latest -t atamdocker/appinventory:${params.APP_VERSION} ."
+                //echo "docker build -t atamdocker/appinventory:latest -t atamdocker/appinventory:${params.APP_VERSION} ."
             }
         }
         stage('Publish Image') {
@@ -47,8 +53,10 @@ pipeline {
                     echo "docker push atamdocker/appinventory:${params.APP_VERSION}"
                 }
                 */
+                /*
                 echo "docker push atamdocker/appinventory:latest"
                 echo "docker push atamdocker/appinventory:${params.APP_VERSION}"
+                */
             }
         }
     }
